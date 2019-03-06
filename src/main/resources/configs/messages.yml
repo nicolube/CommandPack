@@ -1,0 +1,24 @@
+rename:
+    noitem: "Du musst ein Gegenstand in der Hand halten!"
+    renamed: "Du hast §a{0} §7umbenannt zu §a{1}§7."
+lore:
+    add: "Du hast §a{0} §7die Lore §a{1}§7 hinzugefügt!"
+    noitem: "Du musst ein Gegenstand in der Hand halten!"
+warp:
+    notfound: "Warp §c{0} §7wurde nicht gefunden!"
+    teleport: "Du wurdest zum Warp §a{0} §7teleportiert."
+    delete: "Warp §c{0} §7wurde gelöscht."
+    set: "Warp §a{0} §7wurde mit dem Anzeigename §a{1} §7hinzugefügt."
+    allyexist: "Der Warp §c{0} §7exestiert bereits!"
+    reset: "Du hast den Warp §a{0} §7umgesetzt."
+    list: "Hier ist eine Liste aller Warps:\n§a{0}"
+home:
+    notfound: "Zuhause §c{0} §7wurde nicht gefunden!"
+    teleport: "Du wurdest zum Home §a{0} §7teleportiert."
+    delete: "Zuhause §c{0} §7wurde gelöscht."
+    set: "Zuhause §a{0} §7wurde hinzugefügt."
+    allyexist: "Das Zuhause §c{0} §7exestiert bereits!"
+    list: "Hier ist eine Liste deiner Homes:\n§a{0}"
+speed:
+    walk: "Deine Laufgeschwindigkeit wurde auf §a{0}§7 gesetzt."
+    fly: "Deine Fluggeschwindigkeit wurde auf §a{0}§7 gesetzt."

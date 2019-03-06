@@ -1,0 +1,5 @@
+name: %PROJECT_NAME%
+main: de.nicolube.commandpack.Main
+version: %PROJECT_VERSION%
+
+develper: nicolube

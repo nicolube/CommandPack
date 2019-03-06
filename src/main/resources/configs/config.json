@@ -1,0 +1,29 @@
+{
+   "mongoDB": {
+        "auths": [
+            {
+                "database": "database",
+                "user": "user",
+                "password": "password"
+            },
+            {
+                "database": "database",
+                "user": "user",
+                "password": "password"
+            }
+        ],
+        "addresses": [
+            {
+                "host": "hostname",
+                "port": 27017
+            },
+            {
+                "host": "localhost",
+                "port": 27017
+            }
+        ],
+        "localDatabase": "localDatabase",
+        "globalDatabase": "globalDatabase"
+    },
+    "messagesTag": "test-server-1"
+}
