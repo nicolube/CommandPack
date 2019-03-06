@@ -23,6 +23,7 @@ import de.nicolube.commandpack.config.Config;
 import de.nicolube.commandpack.server.WarpManager;
 import de.nicolube.commandpack.users.UserManager;
 import java.io.File;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
@@ -89,10 +90,10 @@ public class Main extends JavaPlugin {
         
         getLogger().info("Setup usermanager...");
         this.userManager = new UserManager(this);
+        Bukkit.getPluginManager().registerEvents(this.userManager, this);
     }
 
     private void loadConfigs() {
-        MongoDatabase db = mongoClient.getDatabase(this.cConfig.getMongoDB().getGlobalDatabase());
         new Prefixes(this.cConfig);
         new Msgs(this.cConfig);
     }
