@@ -23,6 +23,10 @@ public class Warp extends LocationModel {
     private final String name;
     private String displayName;
 
+    public Warp() {
+        this.name = null;
+    }
+    
     public Warp(String name, Location location, Datastore datastore) {
         super(location, datastore);
         this.name = name;
@@ -45,4 +49,12 @@ public class Warp extends LocationModel {
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
     }
+
+    @Override
+    public void save() {
+        super.preSave();
+        super.save();
+    }
+    
+    
 }

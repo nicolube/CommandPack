@@ -23,7 +23,7 @@ import org.mongodb.morphia.annotations.Entity;
 public class User extends Model {
 
     private String uuid;
-    
+
     @Embedded
     private final Map<String, UserHome> homes;
 
@@ -44,9 +44,11 @@ public class User extends Model {
     }
 
     public static User load(Player player, Main plugin) {
-        Location loc = player.getLocation();
-        loc.setY(loc.getWorld().getHighestBlockYAt(player.getLocation()) + 1);
-        player.teleport(loc);
+        if (!player.isOnGround()) {
+            Location loc = player.getLocation();
+            loc.setY(loc.getWorld().getHighestBlockYAt(player.getLocation()) + 1);
+            player.teleport(loc);
+        }
         User user = plugin.getLocalDatastorage().find(User.class).filter("uuid", player.getUniqueId().toString()).get();
         if (user == null) {
             return new User(player, plugin);
