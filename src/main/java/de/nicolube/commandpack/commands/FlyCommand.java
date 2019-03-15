@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (C) 2019 nicolube
  *
  * This program is free software: you can redistribute it and/or modify
@@ -20,36 +20,35 @@ import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.CommandAlias;
 import co.aikar.commands.annotation.CommandPermission;
 import co.aikar.commands.annotation.Default;
-import co.aikar.commands.annotation.Syntax;
 import de.nicolube.commandpack.Main;
 import de.nicolube.commandpack.config.Msgs;
 import de.nicolube.commandpack.config.Prefixes;
-import de.nicolube.commandpack.server.Warp;
+import de.nicolube.commandpack.users.User;
 import org.bukkit.entity.Player;
 
 /**
  *
  * @author nicolube
  */
-@CommandAlias("delwarp|dwarp")
-public class DelWarpCommand extends BaseCommand {
+@CommandAlias("fly|cfly")
+@CommandPermission("commandpack.command.fly")
+public class FlyCommand extends BaseCommand {
 
     private final Main plugin;
 
-    public DelWarpCommand(Main plugin) {
+    public FlyCommand(Main plugin) {
         this.plugin = plugin;
     }
-
+        
     @Default
-    @CommandPermission("commandpack.command.delhome")
-    @Syntax("<home>")
-    public void onDefault(Player player, String string) {
-        Warp home = this.plugin.getWarpManager().removeWarp(string);
-        if (home == null) {
-            player.sendMessage(Prefixes.DEFAULT+Msgs.HOME_NOTFOUND.replace("{0}", string));
-            return;
+    public void onFlyCommand(Player player) {
+        User user = this.plugin.getUserManager().getUser(player);
+        boolean state = !user.isFlying();
+        user.setFlying(state);
+        if (state) {
+            player.sendMessage(Prefixes.DEFAULT+Msgs.FLY_ON);
+        } else {
+            player.sendMessage(Prefixes.DEFAULT+Msgs.FLY_OFF);
         }
-        player.sendMessage(Prefixes.DEFAULT+Msgs.HOME_DELETE.replace("{0}", home.getName()));
     }
-
 }

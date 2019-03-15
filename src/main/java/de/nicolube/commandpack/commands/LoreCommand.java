@@ -1,7 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/* 
+ * Copyright (C) 2019 nicolube
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package de.nicolube.commandpack.commands;
 
@@ -44,6 +55,24 @@ public class LoreCommand extends BaseCommand {
         meta.setLore(loreData);
         item.setItemMeta(meta);
         player.sendMessage(Prefixes.DEFAULT + Msgs.LORE_ADD.replace("{0}", item.getType().name()).replace("{1}", lore));
-        
     }
+        
+        @CommandPermission("commandpack.command.lore.remove")
+        @Subcommand("remove")
+        public void onRemove(Player player) {
+            ItemStack item = player.getInventory().getItemInMainHand();
+            if (item == null || item.getType().equals(Material.AIR)) {
+                player.sendMessage(Prefixes.DEFAULT + Msgs.LORE_NOITEM);
+                return;
+            }
+            ItemMeta meta = item.getItemMeta();
+            List<String> loreData = meta.getLore();
+            if (loreData == null) {
+                loreData = new ArrayList<>();
+            }
+            loreData.clear();
+            meta.setLore(loreData);
+            item.setItemMeta(meta);
+            player.sendMessage(Prefixes.DEFAULT + Msgs.LORE_REMOVE.replace("{0}", item.getType().name()));
+        }
 }

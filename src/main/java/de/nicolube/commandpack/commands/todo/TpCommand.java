@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (C) 2019 nicolube
  *
  * This program is free software: you can redistribute it and/or modify
@@ -14,35 +14,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package de.nicolube.commandpack.config;
-
-import de.nicolube.commandpack.config.MongoConf;
-import java.io.File;
+package de.nicolube.commandpack.commands.todo;
 
 /**
  *
- * @author nicolue.de
+ * @author nicolube
  */
-public class Config extends JsonSaveReadBase {
-    
-    private MongoConf mongoDB;
-    private String messagesTag;
-    
-    public Config(File file) {
-        super(file);
-    }
-    
-    public static Config load(File file) {
-        return JsonSaveReadBase.load(file,Config.class);
-    }
-    
-    public MongoConf getMongoDB() {
-        return mongoDB;
-    }
-
-    public String getMessagesTag() {
-        return messagesTag;
-    }
-    
+public class TpCommand {
     
 }

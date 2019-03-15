@@ -3,3 +3,4 @@ main: de.nicolube.commandpack.Main
 version: %PROJECT_VERSION%
 
 develper: nicolube
+softdepend: [Multiverse-Core, Multiworld]
