@@ -17,6 +17,7 @@
 package de.nicolube.commandpack.commands;
 
 import co.aikar.commands.BaseCommand;
+import co.aikar.commands.annotation.CommandAlias;
 import co.aikar.commands.annotation.CommandPermission;
 import co.aikar.commands.annotation.Subcommand;
 import de.nicolube.commandpack.config.Msgs;
@@ -34,11 +35,8 @@ import org.bukkit.inventory.meta.ItemMeta;
  * @author nicolube
  */
 @CommandPermission("commandpack.command.lore")
+@CommandAlias("lore")
 public class LoreCommand extends BaseCommand {
-
-    public LoreCommand() {
-        super("lore");
-    }
 
     @Subcommand("add")
     public void onAdd(Player player, String lore) {

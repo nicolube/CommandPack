@@ -17,8 +17,9 @@
 package de.nicolube.commandpack.commands;
 
 import co.aikar.commands.BaseCommand;
+import co.aikar.commands.annotation.CommandAlias;
 import co.aikar.commands.annotation.CommandPermission;
-import co.aikar.commands.annotation.UnknownHandler;
+import co.aikar.commands.annotation.Default;
 import de.nicolube.commandpack.Main;
 import de.nicolube.commandpack.config.Msgs;
 import de.nicolube.commandpack.config.Prefixes;
@@ -33,16 +34,16 @@ import org.bukkit.inventory.meta.ItemMeta;
  * @author nicolue.de
  */
 @CommandPermission("commandpack.command.rename")
+@CommandAlias("rename")
 public class RenameCommand extends BaseCommand {
 
     private final Main plugin;
 
     public RenameCommand(Main plugin) {
-        super("rename");
         this.plugin = plugin;
     }
 
-    @UnknownHandler
+    @Default
     public void onRename(Player player, String[] args) {
         StringBuilder nameBuilder = new StringBuilder();
         for (String arg : args) {

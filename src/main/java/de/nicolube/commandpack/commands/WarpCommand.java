@@ -18,6 +18,7 @@ package de.nicolube.commandpack.commands;
 
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.CommandAlias;
+import co.aikar.commands.annotation.CommandCompletion;
 import co.aikar.commands.annotation.CommandPermission;
 import co.aikar.commands.annotation.Default;
 import co.aikar.commands.annotation.Single;
@@ -53,6 +54,7 @@ public class WarpCommand extends BaseCommand {
     }
     
     @Default
+    @CommandCompletion("@warps")
     public void onWarp(Player player, @Single String warpName) {
         Warp warp = this.plugin.getWarpManager().getWarp(warpName);
         if (warp == null) {

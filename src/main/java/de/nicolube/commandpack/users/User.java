@@ -60,6 +60,7 @@ public class User extends Model {
         this.uuid = player.getUniqueId().toString();
         this.homes = new HashMap<>();
         this.flying = false;
+        this.gamemode = Bukkit.getDefaultGameMode();
         save();
     }
 

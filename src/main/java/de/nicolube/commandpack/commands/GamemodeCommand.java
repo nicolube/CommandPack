@@ -18,12 +18,16 @@ package de.nicolube.commandpack.commands;
 
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.CommandAlias;
+import co.aikar.commands.annotation.CommandCompletion;
 import co.aikar.commands.annotation.CommandPermission;
 import co.aikar.commands.annotation.Default;
+import co.aikar.commands.annotation.Private;
 import co.aikar.commands.bukkit.contexts.OnlinePlayer;
 import de.nicolube.commandpack.Main;
 import de.nicolube.commandpack.config.Msgs;
 import de.nicolube.commandpack.config.Prefixes;
+import java.util.Arrays;
+import java.util.List;
 import org.bukkit.GameMode;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -35,14 +39,16 @@ import org.bukkit.entity.Player;
 @CommandAlias("gamemode|gm")
 @CommandPermission("commandpack.command.gamemode")
 public class GamemodeCommand extends BaseCommand {
-
+    
     private final Main plugin;
-
+    
     public GamemodeCommand(Main plugin) {
         this.plugin = plugin;
+        plugin.getCommandManager().getCommandCompletions().registerStaticCompletion("gamemodes", Arrays.asList("survival", "creative", "adventure", "spectator"));
     }
-
+    
     @Default
+    @CommandCompletion("@gamemodes")
     public void onDefault(Player player, String gamemode) {
         gamemode = gamemode.toLowerCase();
         switch (gamemode) {
@@ -75,11 +81,12 @@ public class GamemodeCommand extends BaseCommand {
                 }
                 break;
             default:
-                player.sendMessage(Prefixes.DEFAULT+Msgs.GAMEMODE_UNKNOWN);
+                player.sendMessage(Prefixes.DEFAULT + Msgs.GAMEMODE_UNKNOWN);
         }
     }
-
+    
     @Default
+    @CommandCompletion("@gamemodes  @players")
     public void onDefault(CommandSender sender, String gamemode, OnlinePlayer onlinePlayer) {
         Player player = onlinePlayer.getPlayer();
         gamemode = gamemode.toLowerCase();
@@ -113,79 +120,91 @@ public class GamemodeCommand extends BaseCommand {
                 }
                 break;
             default:
-                sender.sendMessage(Prefixes.DEFAULT+Msgs.GAMEMODE_UNKNOWN);
+                sender.sendMessage(Prefixes.DEFAULT + Msgs.GAMEMODE_UNKNOWN);
         }
     }
-
+    
+    @Private
     @CommandAlias("gms|gm0")
     @CommandPermission("commandpack.command.gamemode.survival")
     public void onSurvival(Player player) {
         this.plugin.getUserManager().getUser(player).setGamemode(GameMode.SURVIVAL);
         player.sendMessage(Prefixes.DEFAULT + Msgs.GAMEMODE_SURVIVAL);
     }
-
+    
+    @Private
     @CommandAlias("gms|gm0")
+    @CommandCompletion("@players")
     @CommandPermission("commandpack.command.gamemode.other.survival")
     public void onSurvival(CommandSender sender, OnlinePlayer player) {
         onCreateive(player.getPlayer());
         sender.sendMessage(Prefixes.DEFAULT + Msgs.GAMEMODE_OTHER_SURVIVAL.replace("{0}", player.getPlayer().getName()));
     }
-
+    
+    @Private
     @CommandAlias("gmc|gm1")
     @CommandPermission("commandpack.command.gamemode.creative")
     public void onCreateive(Player player) {
         this.plugin.getUserManager().getUser(player).setGamemode(GameMode.CREATIVE);
         player.sendMessage(Prefixes.DEFAULT + Msgs.GAMEMODE_CREATIVE);
     }
-
+    
+    @Private
     @CommandAlias("gmc|gm1")
+    @CommandCompletion("@players")
     @CommandPermission("commandpack.command.gamemode.other.creative")
     public void onCreateive(CommandSender sender, OnlinePlayer player) {
         onCreateive(player.getPlayer());
         sender.sendMessage(Prefixes.DEFAULT + Msgs.GAMEMODE_OTHER_CREATIVE.replace("{0}", player.getPlayer().getName()));
     }
-
+    
+    @Private
     @CommandAlias("gma|gm2")
     @CommandPermission("commandpack.command.gamemode.creative")
     public void onAdventure(Player player) {
         this.plugin.getUserManager().getUser(player).setGamemode(GameMode.ADVENTURE);
         player.sendMessage(Prefixes.DEFAULT + Msgs.GAMEMODE_ADVENTURE);
     }
-
+    
+    @Private
     @CommandAlias("gma|gm2")
+    @CommandCompletion("@players")
     @CommandPermission("commandpack.command.gamemode.other.creative")
     public void onAdventure(CommandSender sender, OnlinePlayer player) {
         onCreateive(player.getPlayer());;
         sender.sendMessage(Prefixes.DEFAULT + Msgs.GAMEMODE_OTHER_ADVENTURE.replace("{0}", player.getPlayer().getName()));
     }
-
+    
+    @Private
     @CommandAlias("gmsp|gm3")
     @CommandPermission("commandpack.command.gamemode.creative")
     public void onSpectator(Player player) {
         this.plugin.getUserManager().getUser(player).setGamemode(GameMode.ADVENTURE);
         player.sendMessage(Prefixes.DEFAULT + Msgs.GAMEMODE_SPECTATOR);
     }
-
+    
+    @Private
     @CommandAlias("gmsp|gm3")
+    @CommandCompletion("@players")
     @CommandPermission("commandpack.command.gamemode.other.creative")
     public void onSpectator(CommandSender sender, OnlinePlayer player) {
         onCreateive(player.getPlayer());;
         sender.sendMessage(Prefixes.DEFAULT + Msgs.GAMEMODE_OTHER_SPECTATOR.replace("{0}", player.getPlayer().getName()));
     }
-
+    
     private boolean hasPermission(Player player, String permExt) {
         if (player.hasPermission("commandpack.command.gamemode." + permExt)) {
             return true;
         }
-        player.sendMessage(Prefixes.DEFAULT + Msgs.getConfig().getString("acf-core.permission_denied"));
+        player.sendMessage(Msgs.getConfig().getString("acf-core.permission_denied"));
         return false;
     }
-
+    
     private boolean hasPermissionOther(CommandSender player, String permExt) {
         if (player.hasPermission("commandpack.command.gamemode.other." + permExt)) {
             return true;
         }
-        player.sendMessage(Prefixes.DEFAULT + Msgs.getConfig().getString("acf-core.permission_denied"));
+        player.sendMessage(Msgs.getConfig().getString("acf-core.permission_denied"));
         return false;
     }
 }

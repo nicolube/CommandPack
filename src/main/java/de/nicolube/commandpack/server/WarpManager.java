@@ -35,6 +35,9 @@ public class WarpManager {
         this.plugin = plugin;
         this.warps = new HashMap<>();
         load();
+        plugin.getCommandManager().getCommandCompletions().registerAsyncCompletion("warps", (context) -> {
+            return this.warps.keySet();
+        });
     }
 
     public void load() {
@@ -44,11 +47,13 @@ public class WarpManager {
 
     public Warp removeWarp(String name) {
         Warp warp = this.warps.remove(name.toLowerCase());
-        if (warp == null) return null;
+        if (warp == null) {
+            return null;
+        }
         warp.delete(Warp.class);
         return warp;
     }
-    
+
     public Warp addWarp(String name, Location location) {
         return addWarp(name, name, location);
     }
@@ -64,7 +69,7 @@ public class WarpManager {
         }
         return null;
     }
-    
+
     public Warp getWarp(String name) {
         return this.warps.get(name.toLowerCase());
     }

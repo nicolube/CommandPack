@@ -16,6 +16,7 @@
  */
 package de.nicolube.commandpack.users;
 
+import co.aikar.commands.bukkit.contexts.OnlinePlayer;
 import de.nicolube.commandpack.Main;
 import java.util.HashMap;
 import java.util.Map;
@@ -43,6 +44,13 @@ public class UserManager implements Listener {
         this.plugin = plugin;
         this.users = new HashMap<>();
         load();
+        this.plugin.getCommandManager().getCommandCompletions().registerAsyncCompletion("homes", context -> {
+           return getUser(context.getPlayer()).getHomes().keySet();
+        });
+        this.plugin.getCommandManager().getCommandCompletions().registerAsyncCompletion("homes_other", context -> {
+            Player player = context.getContextValue(OnlinePlayer.class).getPlayer();
+            return getUser(player).getHomes().keySet();
+        });
     }
 
     public void load() {
@@ -51,7 +59,11 @@ public class UserManager implements Listener {
     }
 
     public User getUser(Player player) {
-        return this.users.get(player.getUniqueId());
+        User user = this.users.get(player.getUniqueId());
+        if (user == null) {
+            user = User.load(player, plugin);
+        }
+        return user;
     }
 
     public Map<UUID, User> getUsers() {

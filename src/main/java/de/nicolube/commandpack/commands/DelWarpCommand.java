@@ -18,6 +18,7 @@ package de.nicolube.commandpack.commands;
 
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.CommandAlias;
+import co.aikar.commands.annotation.CommandCompletion;
 import co.aikar.commands.annotation.CommandPermission;
 import co.aikar.commands.annotation.Default;
 import co.aikar.commands.annotation.Syntax;
@@ -42,7 +43,8 @@ public class DelWarpCommand extends BaseCommand {
 
     @Default
     @CommandPermission("commandpack.command.delhome")
-    @Syntax("<home>")
+    @CommandCompletion("@warps")
+    @Syntax("<warp>")
     public void onDefault(Player player, String string) {
         Warp home = this.plugin.getWarpManager().removeWarp(string);
         if (home == null) {

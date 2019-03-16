@@ -134,4 +134,8 @@ public class Main extends JavaPlugin {
     public UserManager getUserManager() {
         return userManager;
     }
+
+    public BukkitCommandManager getCommandManager() {
+        return commandManager;
+    }
 }
