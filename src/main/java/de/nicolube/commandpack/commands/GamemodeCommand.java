@@ -27,7 +27,6 @@ import de.nicolube.commandpack.Main;
 import de.nicolube.commandpack.config.Msgs;
 import de.nicolube.commandpack.config.Prefixes;
 import java.util.Arrays;
-import java.util.List;
 import org.bukkit.GameMode;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -48,7 +47,7 @@ public class GamemodeCommand extends BaseCommand {
     }
     
     @Default
-    @CommandCompletion("@gamemodes")
+    @CommandCompletion("@gamemodes @players")
     public void onDefault(Player player, String gamemode) {
         gamemode = gamemode.toLowerCase();
         switch (gamemode) {
@@ -86,7 +85,7 @@ public class GamemodeCommand extends BaseCommand {
     }
     
     @Default
-    @CommandCompletion("@gamemodes  @players")
+    @CommandCompletion("@gamemodes @players")
     public void onDefault(CommandSender sender, String gamemode, OnlinePlayer onlinePlayer) {
         Player player = onlinePlayer.getPlayer();
         gamemode = gamemode.toLowerCase();
@@ -109,14 +108,14 @@ public class GamemodeCommand extends BaseCommand {
             case "a":
             case "adventure":
                 if (hasPermissionOther(sender, gamemode)) {
-                    onAdventure(player, onlinePlayer);
+                    onAdventure(sender, onlinePlayer);
                 }
                 break;
             case "3":
             case "sp":
             case "spectator":
                 if (hasPermissionOther(sender, gamemode)) {
-                    onSpectator(player, onlinePlayer);
+                    onSpectator(sender, onlinePlayer);
                 }
                 break;
             default:
@@ -137,7 +136,7 @@ public class GamemodeCommand extends BaseCommand {
     @CommandCompletion("@players")
     @CommandPermission("commandpack.command.gamemode.other.survival")
     public void onSurvival(CommandSender sender, OnlinePlayer player) {
-        onCreateive(player.getPlayer());
+        onSurvival(player.getPlayer());
         sender.sendMessage(Prefixes.DEFAULT + Msgs.GAMEMODE_OTHER_SURVIVAL.replace("{0}", player.getPlayer().getName()));
     }
     
@@ -171,7 +170,7 @@ public class GamemodeCommand extends BaseCommand {
     @CommandCompletion("@players")
     @CommandPermission("commandpack.command.gamemode.other.creative")
     public void onAdventure(CommandSender sender, OnlinePlayer player) {
-        onCreateive(player.getPlayer());;
+        onAdventure(player.getPlayer());;
         sender.sendMessage(Prefixes.DEFAULT + Msgs.GAMEMODE_OTHER_ADVENTURE.replace("{0}", player.getPlayer().getName()));
     }
     
@@ -179,7 +178,7 @@ public class GamemodeCommand extends BaseCommand {
     @CommandAlias("gmsp|gm3")
     @CommandPermission("commandpack.command.gamemode.creative")
     public void onSpectator(Player player) {
-        this.plugin.getUserManager().getUser(player).setGamemode(GameMode.ADVENTURE);
+        this.plugin.getUserManager().getUser(player).setGamemode(GameMode.SPECTATOR);
         player.sendMessage(Prefixes.DEFAULT + Msgs.GAMEMODE_SPECTATOR);
     }
     
@@ -188,7 +187,7 @@ public class GamemodeCommand extends BaseCommand {
     @CommandCompletion("@players")
     @CommandPermission("commandpack.command.gamemode.other.creative")
     public void onSpectator(CommandSender sender, OnlinePlayer player) {
-        onCreateive(player.getPlayer());;
+        onSpectator(player.getPlayer());
         sender.sendMessage(Prefixes.DEFAULT + Msgs.GAMEMODE_OTHER_SPECTATOR.replace("{0}", player.getPlayer().getName()));
     }
     

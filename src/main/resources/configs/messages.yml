@@ -26,6 +26,9 @@ speed:
 fly:
     "on": "Dein Flugmodus wurde §aeingeschalten."
     "off": "Dein Flugmudus wurde §causgeschalten."
+    other:
+        "on": "Der Flugmodus von §a{0}§7 wurde §aeingeschalten."
+        "off": "Der Flugmodus von §a{0}§7 wurde §causgeschalten."
 gamemode:
     survival: "Deim Spielmodus wurde auf §2Überleben §7gesetzt."
     creative: "Deim Spielmodus wurde auf §cKreativ §7gesetzt."

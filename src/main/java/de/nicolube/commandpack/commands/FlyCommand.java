@@ -17,13 +17,13 @@
 package de.nicolube.commandpack.commands;
 
 import co.aikar.commands.BaseCommand;
-import co.aikar.commands.annotation.CommandAlias;
-import co.aikar.commands.annotation.CommandPermission;
-import co.aikar.commands.annotation.Default;
+import co.aikar.commands.annotation.*;
+import co.aikar.commands.bukkit.contexts.OnlinePlayer;
 import de.nicolube.commandpack.Main;
 import de.nicolube.commandpack.config.Msgs;
 import de.nicolube.commandpack.config.Prefixes;
 import de.nicolube.commandpack.users.User;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 /**
@@ -41,7 +41,7 @@ public class FlyCommand extends BaseCommand {
     }
         
     @Default
-    public void onFlyCommand(Player player) {
+    public boolean onFlyCommand(Player player) {
         User user = this.plugin.getUserManager().getUser(player);
         boolean state = !user.isFlying();
         user.setFlying(state);
@@ -49,6 +49,17 @@ public class FlyCommand extends BaseCommand {
             player.sendMessage(Prefixes.DEFAULT+Msgs.FLY_ON);
         } else {
             player.sendMessage(Prefixes.DEFAULT+Msgs.FLY_OFF);
+        }
+        return state;
+    }
+
+    @Default
+    @CommandCompletion("@players")
+    public void onFlyCommand(CommandSender sender, OnlinePlayer player) {
+        if (onFlyCommand(player.getPlayer())) {
+            sender.sendMessage(Prefixes.DEFAULT+Msgs.FLY_OTHER_ON.replace("{0}", player.getPlayer().getName()));
+        } else {
+            sender.sendMessage(Prefixes.DEFAULT+Msgs.FLY_OTHER_OFF.replace("{0}", player.getPlayer().getName()));
         }
     }
 }

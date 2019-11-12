@@ -147,7 +147,7 @@ public class User extends Model {
             }, 0);
     }
 
-    void onGamemodeChange(PlayerGameModeChangeEvent event) {
+    protected void onGamemodeChange(PlayerGameModeChangeEvent event) {
         GameMode gamemode = event.getNewGameMode();
         if (gamemode.equals(GameMode.SURVIVAL) || gamemode.equals(GameMode.ADVENTURE)) {
             Bukkit.getScheduler().runTaskLater(plugin, () -> {

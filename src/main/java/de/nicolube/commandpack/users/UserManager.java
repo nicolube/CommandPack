@@ -90,12 +90,12 @@ public class UserManager implements Listener {
     
     @EventHandler
     private void onTeleport(PlayerTeleportEvent event) {
-        this.users.get(event.getPlayer().getUniqueId()).onTeleport(event);
+        this.getUser(event.getPlayer()).onTeleport(event);
     }
     
     @EventHandler
     private void onGamemodeChange(PlayerGameModeChangeEvent event) {
-        this.users.get(event.getPlayer().getUniqueId()).onGamemodeChange(event);
+        this.getUser(event.getPlayer()).onGamemodeChange(event);
     }
     
 }

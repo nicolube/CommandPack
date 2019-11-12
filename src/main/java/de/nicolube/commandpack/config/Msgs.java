@@ -52,6 +52,8 @@ public class Msgs {
 
     public static String FLY_ON;
     public static String FLY_OFF;
+    public static String FLY_OTHER_ON;
+    public static String FLY_OTHER_OFF;
 
     public static String GAMEMODE_SURVIVAL;
     public static String GAMEMODE_CREATIVE;
